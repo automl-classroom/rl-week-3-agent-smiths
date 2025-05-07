@@ -43,7 +43,7 @@ env:
 # TODO: instantiate the EpsilonGreedyPolicy in Hydra. Replace the ???s with your specification
 policy:
   _target_: rl_exercises.week_3.EpsilonGreedyPolicy
-  epsilon: 0.9                        # TODO: Initial exploration rate
+  epsilon: 0.2                        # TODO: Initial exploration rate
   seed: ${seed}                       # Seed for the policy’s internal RNG
 
 
@@ -61,8 +61,8 @@ search_space:
   hyperparameters:
     policy.epsilon:
       type: uniform_float
-      lower: 0.3
-      upper: 0.99
+      lower: 0.0
+      upper: 0.6
       log: false
     agent.alpha:
       type: uniform_float
