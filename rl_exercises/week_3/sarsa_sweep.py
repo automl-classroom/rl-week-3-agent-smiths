@@ -88,6 +88,7 @@ def main(cfg: DictConfig) -> dict:
 
     # 5) run & return reward
     total_reward = run_episodes(agent, env, cfg.num_episodes)
+    print(f"Total reward {total_reward}")
     return total_reward
 
 

@@ -15,12 +15,13 @@ hydra:
   run:
     dir: ./tmp/sarsa_rs              # Directory for single‐run outputs
   sweep:
-    dir: ./tmp/sarsa_rs              # Directory where sweep results are stored
+    dir: ./tmp/sarsa_sweep_rs              # Directory where sweep results are stored
   sweeper:
     n_trials: ${n_trials}                      # Number of sampled configs (trials)
     sweeper_kwargs:
       max_parallelization: 0.8       # Fraction of trials to run in parallel (0.0–1.0)
       max_budget: 10000              # Optional budget cap (if your sweeper supports it)
+      maximize: True
     search_space: ${search_space}    # Reference to the `search_space` block below
 
 
@@ -66,7 +67,7 @@ search_space:
     agent.alpha:
       type: uniform_float
       lower: 0.1
-      upper: 10
+      upper: 1.0
       log: false
     agent.gamma:
       type: uniform_float
