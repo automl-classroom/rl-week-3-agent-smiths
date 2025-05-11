@@ -1,13 +1,13 @@
-import gymnasium as gym
-import minigrid
-from rl_exercises.week_3 import EpsilonGreedyPolicy, SARSAAgent, SARSALambdaAgent
 from time import sleep
 
-def episode(env, agent, evaluate = False):
+import gymnasium as gym
+from rl_exercises.week_3.sarsa_lambda import EpsilonGreedyPolicy, SARSALambdaAgent
+
+
+def episode(env, agent, evaluate=False):
     prev_state, info = env.reset(seed=46)
     prev_state = (prev_state["direction"], str(prev_state["image"]))
     state = prev_state
-    prev_action = None
 
     episode_over = False
     while not episode_over:
@@ -19,8 +19,11 @@ def episode(env, agent, evaluate = False):
         if reward != 0.0:
             print("SUCCESS")
 
-        agent.update_agent(prev_state, action, reward, state, agent.predict_action(state), episode_over)
+        agent.update_agent(
+            prev_state, action, reward, state, agent.predict_action(state), episode_over
+        )
         prev_state = state
+
 
 env = gym.make("MiniGrid-FourRooms-v0", render_mode="none")
 policy = EpsilonGreedyPolicy(env, epsilon=0.8, seed=43)
@@ -29,7 +32,7 @@ agent = SARSALambdaAgent(env, policy, alpha=0.5, gamma=0.9, lam=0.5)
 for i in range(10):
     print(f"Episode {i}")
     episode(env, agent)
-        
+
 env = gym.make("MiniGrid-FourRooms-v0", render_mode="human")
 print("Evaluation!")
 episode(env, agent, True)

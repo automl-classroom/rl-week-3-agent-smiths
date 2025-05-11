@@ -133,7 +133,11 @@ class SARSALambdaAgent(AbstractAgent):
         """
 
         # Calculate classical TD(0) target
-        delta = reward + self.gamma * self.Q[next_state][next_action] - self.Q[state][action]
+        delta = (
+            reward
+            + self.gamma * self.Q[next_state][next_action]
+            - self.Q[state][action]
+        )
 
         # Manage eligibility trace, essentially tracking which state-action-pairs recently occured
         # (as these values are later decreased)
@@ -151,6 +155,11 @@ class SARSALambdaAgent(AbstractAgent):
         for state in self.Q.keys():
             for action in range(self.n_actions):
                 # Apply TD update but take eligibility trace into account!
-                self.Q[state][action] = self.Q[state][action] + self.alpha * delta * self.trace[state][action]
+                self.Q[state][action] = (
+                    self.Q[state][action]
+                    + self.alpha * delta * self.trace[state][action]
+                )
                 # Gradually decrease eligibility traces
-                self.trace[state][action] = self.gamma * self.lam * self.trace[state][action]
+                self.trace[state][action] = (
+                    self.gamma * self.lam * self.trace[state][action]
+                )

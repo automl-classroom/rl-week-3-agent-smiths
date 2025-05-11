@@ -62,7 +62,7 @@ class EpsilonGreedyPolicy(object):
             The selected action
         """
 
-        #print(evaluate)
+        # print(evaluate)
 
         # If evaluation mode, skip exploration entirely
         if evaluate:
