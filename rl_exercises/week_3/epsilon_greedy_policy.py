@@ -62,6 +62,8 @@ class EpsilonGreedyPolicy(object):
             The selected action
         """
 
+        #print(evaluate)
+
         # If evaluation mode, skip exploration entirely
         if evaluate:
             return int(np.argmax(Q[state]))
